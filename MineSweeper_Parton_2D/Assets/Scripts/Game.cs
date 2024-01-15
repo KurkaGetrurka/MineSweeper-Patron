@@ -110,16 +110,48 @@ public class Game : MonoBehaviour
                 int x = cellX + addjacentX;
                 int y = cellY + addjacentY;
 
-                if(x < 0 || x >= width || y < 0 || y >= height) {
-                    continue;
-                }
-
-                if (state[x, y].type == Cell.Type.Mine) {
+                if (GetCell(x, y).type == Cell.Type.Mine) {
                     count++;
                 }
             }
         }
 
         return count;
+    }
+
+    private void Update()
+    {
+        if(Input.GetMouseButtonDown(1)){
+            Flag();
+        }
+    }
+
+    private void Flag()
+    {
+        Vector3 wordlPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3Int cellPosition = board.tilemap.WorldToCell(wordlPosition);
+        Cell cell = GetCell(cellPosition.x, cellPosition.y);
+
+        if (cell.type == Cell.Type.Invalid || cell.revealed) {
+            return;
+        }
+
+        cell.flagged = !cell.flagged;
+        state[cellPosition.x, cellPosition.y] = cell;
+        board.Draw(state);
+        }
+
+    private Cell GetCell(int x, int y)
+    {
+        if(IsValid(x,y)) {
+            return state[x, y];
+        } else {
+            return new Cell();
+        }
+    }
+
+    private bool IsValid(int x, int y)
+    {
+        return x >= 0 && x < width && y >= 0 && y < height;
     }
 }
