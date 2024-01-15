@@ -254,7 +254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44459914558180c468002e4f420fd8ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileUnknown: {fileID: 0}
+  tileUnknown: {fileID: 11400000, guid: bc2cc3f69dd0a9048b7cb4ac649fd219, type: 2}
   tileEmpty: {fileID: 11400000, guid: 1a2853cc42518634d891bbdc9c4fc24a, type: 2}
   tileMine: {fileID: 11400000, guid: cc49ce22faed9984497b83ca4ff037d2, type: 2}
   tileExploded: {fileID: 11400000, guid: 7038a81d2bc8a614c92a637ae527a5b8, type: 2}
@@ -369,6 +369,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1081720196}
   - component: {fileID: 1081720195}
+  - component: {fileID: 1081720197}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -404,6 +405,21 @@ Transform:
   - {fileID: 284499591}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1081720197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1081720194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8026c237af9f491680d8f509745a2d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  width: 16
+  height: 16
+  mineCount: 32
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
