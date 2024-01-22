@@ -200,7 +200,7 @@ public class Game : MonoBehaviour
 
     private void Explode(Cell cell)
     {
-        Debug.Log('Game Over!');
+        Debug.Log("Game Over!");
         gameover = true;
 
         cell.revealed = true;
