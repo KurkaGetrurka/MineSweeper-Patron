@@ -11,6 +11,11 @@ public class Game : MonoBehaviour
     private Cell[,] state;
     private bool gameover;
 
+    private void OnValidate()
+    {
+        mineCount = Mathf.Clamp(mineCount, 0, width * height);
+    }
+
     private void Awake()
     {
         board = GetComponentInChildren<Board>();
@@ -123,7 +128,12 @@ public class Game : MonoBehaviour
 
     private void Update()
     {
-        if (!gameover)
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            NewGame();
+        }
+
+        else if (!gameover)
         {
 
             if (Input.GetMouseButtonDown(1))
@@ -170,11 +180,13 @@ public class Game : MonoBehaviour
 
             case Cell.Type.Empty:
                 Flood(cell);
+                CheckWinCondition();
                 break;
 
             default:
                 cell.revealed = true;
                 state[cellPosition.x, cellPosition.y] = cell;
+                CheckWinCondition();
                 break;
         }
 
@@ -216,6 +228,39 @@ public class Game : MonoBehaviour
                 if (cell.type == Cell.Type.Mine)
                 {
                     cell.revealed = true;
+                    state[x, y] = cell;
+                }
+            }
+        }
+    }
+
+    private void CheckWinCondition()
+    {
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                Cell cell = state[x, y];
+
+                if (cell.type != Cell.Type.Mine && !cell.revealed) {
+                    return;
+                }
+            }
+    
+        }
+
+        Debug.Log("Winner!");
+        gameover = true;
+
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                Cell cell = state[x, y];
+
+                if (cell.type == Cell.Type.Mine)
+                {
+                    cell.flagged = true;
                     state[x, y] = cell;
                 }
             }
